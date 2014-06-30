@@ -35,9 +35,8 @@ void tearDown(void)
 	List_addTail_Expect(&outList,&TARUC);
 	Stack_pop_ExpectAndReturn(&stackInstance,NULL);
 	
-	counter = Institution_reverse(&inList,&outList);	
-	printf("counter %d\n\n",counter);
 	
+	counter = Institution_reverse(&inList,&outList);	
 	TEST_ASSERT_EQUAL(1,counter);
 } 
 
@@ -64,9 +63,8 @@ void tearDown(void)
 	List_addTail_Expect(&outList,&TARUC);
 	Stack_pop_ExpectAndReturn(&stackInstance,NULL);
 	
-	counter =Institution_reverse(&inList,&outList);	
 	
-	printf("counter %d",counter);
+	counter =Institution_reverse(&inList,&outList);	
 	TEST_ASSERT_EQUAL(2,counter);
 }   
 
@@ -93,13 +91,29 @@ void test_explore_Institution_select_given_University_and_USM_UTAR_should_return
 	Institution USM = {"USM","Penang",99999,87645612,University,2000};
 	Institution UTAR = {"UTAR","KAMPAR",99999,87645612,University,2000};
 	
-	Stack_create_ExpectAndReturn(&stackInstance);
-	
 	List_removeHead_ExpectAndReturn(&inList,&USM);
-	List_addTail
+	List_addTail_Expect(&outList,&USM);
 	
+	List_removeHead_ExpectAndReturn(&inList,&UTAR);
+	List_addTail_Expect(&outList,&UTAR);
+	List_removeHead_ExpectAndReturn(&inList,NULL);
 	
 	selected = Institution_select(&inList,&outList,&UCtype,isUniversityCollege);
 	TEST_ASSERT_EQUAL(2,selected);
 }
- 
+
+void test_explore_Institution_select_given_College_and_USM_UTAR_should_return_0()
+{
+	int selected ;
+	InstitutionType UCtype = College ;
+	Institution USM = {"USM","Penang",99999,87645612,University,2000};
+	Institution UTAR = {"UTAR","KAMPAR",99999,87645612,University,2000};
+	
+	List_removeHead_ExpectAndReturn(&inList,&USM);
+	List_removeHead_ExpectAndReturn(&inList,&UTAR);
+	List_removeHead_ExpectAndReturn(&inList,NULL);
+	
+	selected = Institution_select(&inList,&outList,&UCtype,isUniversityCollege);
+	TEST_ASSERT_EQUAL(0,selected);
+}
+

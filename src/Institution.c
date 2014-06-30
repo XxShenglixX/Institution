@@ -14,25 +14,15 @@ int Institution_reverse(LinkedList *inputList,LinkedList *outputList)
 	{
 		input = (Institution *)List_removeHead(inputList);
 		if(input!= NULL)	
-			{
-				Stack_push(newStack,input);
-				printf("input :%s\n",input->name);
-			}	
+			Stack_push(newStack,input);
+			
 	}while (input != NULL);
-	
-	// output = (Institution *)Stack_pop(newStack);
-	// printf("output :%s\n\n",output->name);
-	// List_addTail(outputList,output);
-	// output = (Institution *)Stack_pop(newStack);
-	// printf("output :%s\n\n",output->name);
-	// List_addTail(outputList,output);
 	
 	do
 	{
 		output = (Institution *)Stack_pop(newStack);
 		if(output !=NULL)
 			{
-				printf("output :%s\n",output->name);
 				List_addTail(outputList,output);
 				counter ++ ;
 			}
@@ -46,10 +36,7 @@ int Institution_reverse(LinkedList *inputList,LinkedList *outputList)
 int isUniversityCollege(void *elem1,void *type)
 {
 	InstitutionType UCtype = *(InstitutionType *)type ;
-	printf("\ntype :%d\n",UCtype);
-
 	Institution *data = (Institution *)elem1 ;
-	printf("data UCtype :%d\n",data->type);
 	
 	if ( data->type == UCtype)
 		return 1 ;
@@ -60,21 +47,21 @@ int isUniversityCollege(void *elem1,void *type)
 int Institution_select(LinkedList *inputList,LinkedList *outputList,void *criterion,
 					   int (*compare)(void *,void *))
 {					   
-	Institution *head ,*output ;
+	Institution *head ;
 	int selected = 0 ,result;
 	
-	Stack *newStack = Stack_create();
-	
-	head = (Institution *)List_removeHead(inputList);
-	printf("\nInstituteSelect :%s\n",head->name);
-	
-	result = compare(head,criterion);
-	printf("Same ? : %d\n",result);
-	
-	if (result == 1)
+	do 
 	{
-		
-	}
+		head = (Institution *)List_removeHead(inputList);
+		if (head !=NULL)
+			result = compare(head,criterion);
+		if (result == 1 && head !=NULL)
+			{
+				List_addTail(outputList,head);
+				selected ++ ;
+			}
+	}while( head != NULL);
+	
 	
 	return selected;
 }				
