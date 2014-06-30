@@ -71,7 +71,7 @@ void tearDown(void)
 	TEST_ASSERT_EQUAL(2,counter);
 }   
 
-/*Institution Select by type */
+/*isUniversityCollege */
 void test_explore_isUniversityCollege_given_UniversityCollege_should_return_1()
 {
 	Institution TARUC = {"TARUC","KL",53300,12345678,UniversityCollege,1950};
@@ -88,6 +88,7 @@ void test_explore_isUniversityCollege_given_University_should_return_0()
 	TEST_ASSERT_EQUAL(0,isUniversityCollege(&TARUC,&UCtype));
 }
 
+/*Institution select by type */
 void test_explore_Institutionselect_bytype_given_University_and_USM_UTAR_should_return_2()
 {
 	int selected ;
