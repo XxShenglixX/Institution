@@ -15,11 +15,9 @@ typedef struct Institution_t
 } Institution;
 
 int Institution_reversal(LinkedList *inputList,LinkedList *outputList);
-
 int Institution_select(LinkedList *inputList,LinkedList *outputList,void *criterion,
 					   int (*compare)(void *,void *));
 					   
 int isUniversityCollege(void *elem1,void *type);
-
 int wasEstablishedBefore(void *elem,void *year);
 #endif // Institution_H
