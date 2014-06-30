@@ -4,6 +4,7 @@
 #include "mock_Stack.h"
 #include <stdio.h>
 #include "CException.h"
+#include "ErrorCode.h"
 
 LinkedList inList;
 LinkedList outList;
@@ -19,13 +20,27 @@ void tearDown(void)
 }
 
 /* Institution Reverse */
- void test_explore_InstitutionReverse_given_TARUC_should_return_1_for_reversed_list()
+ void test_explore_InstitutionReverse_given_NULL_should_return_0_and_empty_list()
 {
 	int counter ;
 	
 	Institution TARUC = {"TARUC","KL",53300,12345678,UniversityCollege,1950};
 	
-	inList.head = &TARUC;
+	Stack_create_ExpectAndReturn(&stackInstance);
+	
+	List_removeHead_ExpectAndReturn(&inList,NULL);
+
+	counter = Institution_reverse(&inList,outList);	
+	//TEST_ASSERT_EQUAL(NULL,&outList);
+	TEST_ASSERT_EQUAL(0,counter);
+}
+
+
+ void test_explore_InstitutionReverse_given_TARUC_should_return_1_for_reversed_list()
+{
+	int counter ;
+	
+	Institution TARUC = {"TARUC","KL",53300,12345678,UniversityCollege,1950};
 	
 	Stack_create_ExpectAndReturn(&stackInstance);
 	
@@ -42,7 +57,7 @@ void tearDown(void)
 	TEST_ASSERT_EQUAL(1,counter);
 } 
 
-/* Institution Reverse */
+
  void test_explore_InstitutionReverse_given_TARUC_UTAR_should_return_2_for_reversed_list()
 {
 	int counter ;
@@ -70,6 +85,8 @@ void tearDown(void)
 	counter =Institution_reverse(&inList,&outList);	
 	TEST_ASSERT_EQUAL(2,counter);
 }   
+
+
 
 /*isUniversityCollege */
 void test_explore_isUniversityCollege_given_UniversityCollege_should_return_1()
@@ -173,7 +190,7 @@ void test_explore_wasEstablishedBefore_given_year_2000_UTAR_year2015_should_thro
 	}
 	Catch(err)
 	{
-		TEST_ASSERT_EQUAL(1,err);
+		TEST_ASSERT_EQUAL(ERR_INVALID_YEAR,err);
 		printf("Error [%d] : Year is larger than 2014 ",err);
 	}
 	
@@ -243,7 +260,7 @@ void test_explore_Institutionselect_byyear_given_1994_and_MyUniversity_should_re
 	}
 	Catch(err)
 	{
-		TEST_ASSERT_EQUAL(1,err);
+		TEST_ASSERT_EQUAL(ERR_INVALID_YEAR,err);
 		printf("Error [%d] : The year of establishment is larger than 2014 ",err);
 	}
 	

@@ -1,8 +1,9 @@
 #include "Institution.h"
 #include <stdio.h>
-#include <Stack.h>
-#include <LinkedList.h>
+#include "Stack.h"
+#include "LinkedList.h"
 #include "CException.h"
+#include "ErrorCode.h"
 
 /**
  * Reverse the order of element
@@ -15,7 +16,7 @@
  */
 int Institution_reverse(LinkedList *inputList,LinkedList *outputList)
 {
-	int counter = 0;
+	int counter = 0, firstCount = 1 ;
 	Institution *input ,*output ;
 
 	Stack *newStack = Stack_create();
@@ -23,9 +24,15 @@ int Institution_reverse(LinkedList *inputList,LinkedList *outputList)
 	do
 	{
 		input = (Institution *)List_removeHead(inputList);
+		if(firstCount == 1 && input == NULL)
+			{
+				outputList = NULL ;
+				return 0;
+			}
+		else 
+			firstCount = 0 ;
 		if(input!= NULL)	
 			Stack_push(newStack,input);
-			
 	}while (input != NULL);
 	
 	do
@@ -111,7 +118,7 @@ int wasEstablishedBefore(void *elem,void *year)
 	Institution *data = (Institution *)elem ;
 	
 	if(data->yearEstablished >2014)
-		Throw(1);
+		Throw(ERR_INVALID_YEAR);
 	
 	if (data->yearEstablished == *(int *) year )
 		return 1;
